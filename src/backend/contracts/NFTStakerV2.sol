@@ -46,8 +46,14 @@ contract NFTStakerV2 is ERC721Holder, MyOwnable, ReentrancyGuard {
     // constructor(uint256 _stakingPeriod, address _ownerAddress, address[] memory _stakedNfts, address _placeholderNftAddress, address _rewardNftAddress) {
     //     initialize(_stakingPeriod, _ownerAddress, _stakedNfts, _placeholderNftAddress, _rewardNftAddress);
     // }
+     modifier notInitialized() {
+        require(!initialized, "Contract instance has already been initialized");
+        _;
+    }
 
-    function initialize(uint256 _stakeMinimum, uint256 _stakeMaximum, uint256 _stakingPeriod, address _ownerAddress, address[] memory _stakedNfts, address _placeholderNftAddress, address _rewardNftAddress) public {
+    bool private initialized;
+
+    function initialize(uint256 _stakeMinimum, uint256 _stakeMaximum, uint256 _stakingPeriod, address _ownerAddress, address[] memory _stakedNfts, address _placeholderNftAddress, address _rewardNftAddress) public notInitialized {
         _status = _NOT_ENTERED;
         
         stakeMinimum = _stakeMinimum;
