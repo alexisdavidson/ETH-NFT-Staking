@@ -127,27 +127,27 @@
     },
     {
       "address": "0x0B306BF915C4d645ff596e518fAf3F9669b97016",
-      "txHash": "0xcd2cb3af38c82b0f4ce47b8affd4f46ffbe1e6d4388f20bd8c9fd551c699f561",
+      "txHash": "0xf56d59d08a95a5e96d47da84c12710ddfd7aa67df4670e3b8bd440af78ca3950",
       "kind": "transparent"
     },
     {
       "address": "0x4ed7c70F96B99c776995fB64377f0d4aB3B0e1C1",
-      "txHash": "0xccfb45f4a763b999e368c675a4f69da0fac41302e7f72a3fb25c8629a513de36",
+      "txHash": "0x13737ca79605d294126ab6526b80b6d1f035da69015175caf3597640ac7f8a40",
       "kind": "transparent"
     },
     {
       "address": "0xE6E340D132b5f46d1e472DebcD681B2aBc16e57E",
-      "txHash": "0xeaa9976414d52c4b8046c1a11388e8ff31248f036a1831daea1df1270580dffa",
+      "txHash": "0x5b4942fd3b3b6d6cd113ce391e1a63f835f23dba4ca4da3d832b3469483d8963",
       "kind": "transparent"
     },
     {
       "address": "0xf5059a5D33d5853360D16C683c16e67980206f36",
-      "txHash": "0xc986700f92baf80a060ed3f537e0275a773ae3eff0f393b0b5d00d7291fc2926",
+      "txHash": "0xfbcb039887a7755073c92ed13da5244310d9bdec3a1ffe7b0df9b89359ce70cb",
       "kind": "transparent"
     },
     {
       "address": "0x8f86403A4DE0BB5791fa46B8e795C547942fE4Cf",
-      "txHash": "0x65ebff9a5004c7d141e8bc79d42826624135bd6085b7ad8e151cf56b17554506",
+      "txHash": "0x26ccd975a2f40aae4f342e1577b997f341e0860c43d998661b1cab6f518fb026",
       "kind": "transparent"
     },
     {
@@ -506,9 +506,9 @@
         }
       }
     },
-    "2c05f90869fd26230ba2c48924941362112e57f7d6f4fc6bfacc0f0abc5d9fd2": {
+    "baf25c4a49a21c61efe2bc2e14c60da29b265fe532d0919cbab722b1e60b031b": {
       "address": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
-      "txHash": "0xaa82441a474fd0299ada43f65e5e0378e88f6d5450f607e697ca11f136200a57",
+      "txHash": "0x6b7c28b20695888c0ac6eeafa67917a9584602a22155259ee9352a00fb993023",
       "layout": {
         "solcVersion": "0.8.13",
         "storage": [
@@ -540,7 +540,7 @@
             "label": "placeholderNft",
             "offset": 0,
             "slot": "3",
-            "type": "t_contract(PlaceholderNFT)12396",
+            "type": "t_contract(PlaceholderNFT)12398",
             "contract": "NFTStakerV2",
             "src": "src\\backend\\contracts\\NFTStakerV2.sol:17"
           },
@@ -548,7 +548,7 @@
             "label": "rewardNft",
             "offset": 0,
             "slot": "4",
-            "type": "t_contract(RewardNFT)12667",
+            "type": "t_contract(RewardNFT)12669",
             "contract": "NFTStakerV2",
             "src": "src\\backend\\contracts\\NFTStakerV2.sol:18"
           },
@@ -606,7 +606,7 @@
             "slot": "11",
             "type": "t_bool",
             "contract": "NFTStakerV2",
-            "src": "src\\backend\\contracts\\NFTStakerV2.sol:54"
+            "src": "src\\backend\\contracts\\NFTStakerV2.sol:41"
           }
         ],
         "types": {
@@ -634,11 +634,11 @@
             "label": "contract ERC721",
             "numberOfBytes": "20"
           },
-          "t_contract(PlaceholderNFT)12396": {
+          "t_contract(PlaceholderNFT)12398": {
             "label": "contract PlaceholderNFT",
             "numberOfBytes": "20"
           },
-          "t_contract(RewardNFT)12667": {
+          "t_contract(RewardNFT)12669": {
             "label": "contract RewardNFT",
             "numberOfBytes": "20"
           },
