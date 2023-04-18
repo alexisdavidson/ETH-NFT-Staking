@@ -45,7 +45,9 @@ describe("NFTStaker", async function() {
         it("Should upgrade the contract and burn the placeholder each time when staking and unstaking the same token", async function() {
             const NFTStakerV2 = await ethers.getContractFactory("NFTStakerV2");
             await upgrades.upgradeProxy(nftStakerProxy.address, NFTStakerV2); // Comment the upgrade out to see that the test fails
-            
+            const NFTStakerV3 = await ethers.getContractFactory("NFTStakerV3");
+            await upgrades.upgradeProxy(nftStakerProxy.address, NFTStakerV3);
+
             await quirklingsNft.connect(addr1).mint(3);
             await quirklingsNft.connect(addr1).setApprovalForAll(nftStakerProxy.address, true);
 
@@ -110,6 +112,16 @@ describe("NFTStaker", async function() {
                 expect((await quirklingsNft.ownerOf(3))).to.equals(nftStakerProxy.address);
                 expect((await quirklingsNft.balanceOf(addr1.address))).to.equals(2);
             }
+            
+            const NFTStakerV3 = await ethers.getContractFactory("NFTStakerV3");
+            await upgrades.upgradeProxy(nftStakerProxy.address, NFTStakerV3);
+            await nftStakerProxy.deployed();
+            nftStakerProxy = await NFTStakerV3.attach(nftStakerProxy.address);
+
+            // This is reverting because the data migration is not done. In reality, the token 3 should be staked.
+            await expect(nftStakerProxy.connect(addr1).unstake([3])).to.be.revertedWith('Index not found for this staker.');
+            
+            await nftStakerProxy.connect(addr1).migrateData(); // addr1 is owner
 
             await expect(nftStakerProxy.connect(addr1).unstake([3])).to.be.revertedWith('ERC721: caller is not token owner or approved');
             await placeholderNft.connect(addr1).setApprovalForAll(nftStakerProxy.address, true);
@@ -121,6 +133,11 @@ describe("NFTStaker", async function() {
         })
 
         it("Should stake and claim no rewards before elapsed time", async function() {
+            const NFTStakerV2 = await ethers.getContractFactory("NFTStakerV2");
+            await upgrades.upgradeProxy(nftStakerProxy.address, NFTStakerV2);
+            const NFTStakerV3 = await ethers.getContractFactory("NFTStakerV3");
+            await upgrades.upgradeProxy(nftStakerProxy.address, NFTStakerV3);
+
             await expect(nftStakerProxy.connect(addr1).stake([])).to.be.revertedWith('Stake amount incorrect');
             await expect(nftStakerProxy.connect(addr1).stake([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])).to.be.revertedWith('Stake amount incorrect');
 
@@ -166,6 +183,11 @@ describe("NFTStaker", async function() {
         })
 
         it("Should stake and claim rewards after elapsed time", async function() {
+            const NFTStakerV2 = await ethers.getContractFactory("NFTStakerV2");
+            await upgrades.upgradeProxy(nftStakerProxy.address, NFTStakerV2);
+            const NFTStakerV3 = await ethers.getContractFactory("NFTStakerV3");
+            await upgrades.upgradeProxy(nftStakerProxy.address, NFTStakerV3);
+
             await quirklingsNft.connect(addr1).mint(3);
             await quirklingsNft.connect(addr1).setApprovalForAll(nftStakerProxy.address, true);
             await nftStakerProxy.connect(addr1).stake([2]);
@@ -183,6 +205,11 @@ describe("NFTStaker", async function() {
         })
 
         it("Should set correct metadata for placeholder and reward", async function() {
+            const NFTStakerV2 = await ethers.getContractFactory("NFTStakerV2");
+            await upgrades.upgradeProxy(nftStakerProxy.address, NFTStakerV2);
+            const NFTStakerV3 = await ethers.getContractFactory("NFTStakerV3");
+            await upgrades.upgradeProxy(nftStakerProxy.address, NFTStakerV3);
+
             await quirklingsNft.connect(addr1).mint(3);
             await quirklingsNft.connect(addr1).setApprovalForAll(nftStakerProxy.address, true);
             await nftStakerProxy.connect(addr1).stake([2]);
@@ -208,6 +235,11 @@ describe("NFTStaker", async function() {
         })
 
         it("Should track staking wallets and display what is being staked currently", async function() {
+            const NFTStakerV2 = await ethers.getContractFactory("NFTStakerV2");
+            await upgrades.upgradeProxy(nftStakerProxy.address, NFTStakerV2);
+            const NFTStakerV3 = await ethers.getContractFactory("NFTStakerV3");
+            await upgrades.upgradeProxy(nftStakerProxy.address, NFTStakerV3);
+
             await quirklingsNft.connect(addr1).mint(3);
             await quirklingsNft.connect(addr2).mint(3);
             await quirklingsNft.connect(addr1).setApprovalForAll(nftStakerProxy.address, true);
@@ -227,6 +259,11 @@ describe("NFTStaker", async function() {
         })
 
         it("Should not be able to re stake the same Nft", async function() {
+            const NFTStakerV2 = await ethers.getContractFactory("NFTStakerV2");
+            await upgrades.upgradeProxy(nftStakerProxy.address, NFTStakerV2);
+            const NFTStakerV3 = await ethers.getContractFactory("NFTStakerV3");
+            await upgrades.upgradeProxy(nftStakerProxy.address, NFTStakerV3);
+
             await quirklingsNft.connect(addr1).mint(3);
             await quirklingsNft.connect(addr1).setApprovalForAll(nftStakerProxy.address, true);
 
@@ -246,6 +283,11 @@ describe("NFTStaker", async function() {
         })
 
         it("Should stake and claim from the 2nd collection", async function() {
+            const NFTStakerV2 = await ethers.getContractFactory("NFTStakerV2");
+            await upgrades.upgradeProxy(nftStakerProxy.address, NFTStakerV2);
+            const NFTStakerV3 = await ethers.getContractFactory("NFTStakerV3");
+            await upgrades.upgradeProxy(nftStakerProxy.address, NFTStakerV3);
+
             await quirkiesNft.connect(addr1).mint(3);
             await quirkiesNft.connect(addr1).setApprovalForAll(nftStakerProxy.address, true);
 
@@ -266,7 +308,9 @@ describe("NFTStaker", async function() {
 
         it("Should upgrade and from 2 different collections in one transaction", async function() {
             const NFTStakerV2 = await ethers.getContractFactory("NFTStakerV2");
-            await upgrades.upgradeProxy(nftStakerProxy.address, NFTStakerV2); // Comment the upgrade out to see that the test fails
+            await upgrades.upgradeProxy(nftStakerProxy.address, NFTStakerV2);
+            const NFTStakerV3 = await ethers.getContractFactory("NFTStakerV3");
+            await upgrades.upgradeProxy(nftStakerProxy.address, NFTStakerV3);
 
             await quirkiesNft.connect(addr1).mint(3);
             await quirkiesNft.connect(addr1).setApprovalForAll(nftStakerProxy.address, true);
